@@ -22,7 +22,13 @@ const API_KEY = "live_uTP2aVL6kUJPYYaUuTy2W2vGjSZRFNKmjs206QhnKHnULIXFFmlac6R7Yu
 async function initialLoad(){
   const getCats = await fetch('https://api.thecatapi.com/v1/breeds')
   const catData = await getCats.json();
-  console.log(catData)
+  for(let i = 0; i < catData.length; i++){
+    let breedName = catData[i].name;
+    let nameDisplay = document.createElement("object")
+    nameDisplay.innerHTML = breedName;
+    nameDisplay.setAttribute('id', catData[i].id)
+    breedSelect.appendChild(nameDisplay)
+  }
 }
 
 initialLoad()
