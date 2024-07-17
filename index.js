@@ -24,7 +24,7 @@ async function initialLoad(){
   const catData = await getCats.json();
   for(let i = 0; i < catData.length; i++){
     let breedName = catData[i].name;
-    let nameDisplay = document.createElement("object")
+    let nameDisplay = document.createElement("option")
     nameDisplay.innerHTML = breedName;
     nameDisplay.setAttribute('id', catData[i].id)
     breedSelect.appendChild(nameDisplay)
