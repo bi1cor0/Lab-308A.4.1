@@ -47,6 +47,12 @@ initialLoad()
  * - Add a call to this function to the end of your initialLoad function above to create the initial carousel.
  */
 
+async function printCatContent() {
+  console.log(breedSelect.innerHTML)
+}
+
+breedSelect.addEventListener(`change`, printCatContent)
+
 /**
  * 3. Fork your own sandbox, creating a new one named "JavaScript Axios Lab."
  */
