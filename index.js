@@ -48,7 +48,13 @@ initialLoad()
  */
 
 async function printCatContent() {
-  console.log(breedSelect.innerHTML)
+  let selectedCat = this.options[this.selectedIndex]
+  let selectCatId = selectedCat.id
+
+  const getCatPics = await fetch(`https://api.thecatapi.com/v1/images/search?limit=10&breed_ids=${selectCatId}&api_key=${API_KEY}`)
+  const catPics = await getCatPics.json();
+
+  console.log(catPics)
 }
 
 breedSelect.addEventListener(`change`, printCatContent)
