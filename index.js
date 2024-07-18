@@ -29,9 +29,6 @@ async function initialLoad(){
     nameDisplay.setAttribute('id', catData[i].id)
     breedSelect.appendChild(nameDisplay)
   }
-  const infoDisplay = document.createElement("p")
-  infoDisplay.innerText = catInfo.description
-  infoDump.appendChild(infoDisplay)
 
   Carousel.start();
 }
@@ -69,7 +66,8 @@ async function printCatContent() {
   for(let i = 0; i < catPics.length; i++){
     let catImgSrc = catPics[i].url
     let catImgitem = Carousel.createCarouselItem(catImgSrc)
-    breedSelect.appendChild(catImgitem)
+    console.log(catImgitem)
+    Carousel.appendCarousel(catImgitem)
   }
 
   const infoDisplay = document.createElement("p")
