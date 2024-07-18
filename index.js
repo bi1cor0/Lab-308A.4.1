@@ -60,10 +60,10 @@ async function printCatContent() {
   for(let i = 0; i < catPics.length; i++){
     let catImgSrc = catPics[i].url
     let catImgitem = Carousel.createCarouselItem(catImgSrc)
-    console.log(catImgitem)
-    let newCatitem = Carousel.createCarouselItem(catImgitem)
-    document.getElementById("infoDump").appendChild(newCatitem)
+    breedSelect.appendChild(nameDisplay)
   }
+  Carousel.start(); //calling the Carousel start function. 
+
 }
 
 breedSelect.addEventListener(`change`, printCatContent)

@@ -25,7 +25,7 @@ async function initialLoad(){ // * 1. Create an async function "initialLoad" tha
 
   for(let i = 0; i < catData.length; i++){ // loop to create new <options> for each of these breeds, and append them to breedSelect.
     let breedName = catData[i].name;
-    let nameDisplay = document.createElement("option")
+    let nameDisplay = document.createElement("option") //created option element 
     nameDisplay.innerHTML = breedName;
     nameDisplay.setAttribute('id', catData[i].id) //setting attribute to ID.
     breedSelect.appendChild(nameDisplay) //appending child into the select menu.
@@ -51,21 +51,19 @@ initialLoad()
 
 async function printCatContent() {
   Carousel.clear(); //attempting to clear the Carousel
-  Carousel.start(); //attempting to restart the Carousel 
   let selectedCat = this.options[this.selectedIndex] //getting the value of the selected option
   let selectCatId = selectedCat.id//getting the value of the selected option's id for api get. 
+  console.log(selectCatId)
 
   const getcatPics = await axios.get(`https://api.thecatapi.com/v1/images/search?limit=10&breed_ids=${selectCatId}&api_key=${API_KEY}`) //Retrieve information on the selected breed from the cat API using axios.
   const catPics = getcatPics.data
 
   for(let i = 0; i < catPics.length; i++){
     let catImgSrc = catPics[i].url
-    console.log(catImgSrc)
     let catImgitem = Carousel.createCarouselItem(catImgSrc)
-    console.log(catImgitem)
-    let newCatitem = Carousel.createCarouselItem(catImgitem)
-    document.getElementById("infoDump").appendChild(newCatitem)
+    Carousel.appendCarousel(catImgitem)
   }
+  Carousel.start(); //attempting to restart the Carousel 
 }
 
 breedSelect.addEventListener(`change`, printCatContent) //Create an event handler for breedSelect. 
