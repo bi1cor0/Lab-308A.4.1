@@ -29,6 +29,7 @@ async function initialLoad(){
     nameDisplay.setAttribute('id', catData[i].id)
     breedSelect.appendChild(nameDisplay)
   }
+  Carousel.start();
 }
 
 initialLoad()
@@ -48,13 +49,21 @@ initialLoad()
  */
 
 async function printCatContent() {
+  Carousel.clear();
+  Carousel.start();
   let selectedCat = this.options[this.selectedIndex]
   let selectCatId = selectedCat.id
 
   const getCatPics = await fetch(`https://api.thecatapi.com/v1/images/search?limit=10&breed_ids=${selectCatId}&api_key=${API_KEY}`)
   const catPics = await getCatPics.json();
 
-  console.log(catPics)
+  for(let i = 0; i < catPics.length; i++){
+    let catImgSrc = catPics[i].url
+    console.log(catImgSrc)
+    let catImgitem = Carousel.createCarouselItem(catImgSrc)
+    console.log(catImgitem)
+    Carousel.createCarouselItem(catImgitem)
+  }
 }
 
 breedSelect.addEventListener(`change`, printCatContent)
