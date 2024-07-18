@@ -29,6 +29,10 @@ async function initialLoad(){
     nameDisplay.setAttribute('id', catData[i].id)
     breedSelect.appendChild(nameDisplay)
   }
+  const infoDisplay = document.createElement("p")
+  infoDisplay.innerText = catInfo.description
+  infoDump.appendChild(infoDisplay)
+
   Carousel.start();
 }
 
@@ -50,18 +54,28 @@ initialLoad()
 
 async function printCatContent() {
   Carousel.clear();
-  Carousel.start();
+  while (infoDump.firstChild) { //creating while loop that takes in a boolean to check to see if infodump has a child node. 
+    infoDump.removeChild(infoDump.firstChild); //remove the child node if there is one 
+  }
+
   let selectedCat = this.options[this.selectedIndex]
   let selectCatId = selectedCat.id
 
   const getCatPics = await fetch(`https://api.thecatapi.com/v1/images/search?limit=10&breed_ids=${selectCatId}&api_key=${API_KEY}`)
   const catPics = await getCatPics.json();
+  const getcatInfo = await fetch(`https://api.thecatapi.com/v1/breeds/${selectCatId}`) //fetch method to get info. 
+  const catInfo = await getcatInfo.json();
 
   for(let i = 0; i < catPics.length; i++){
     let catImgSrc = catPics[i].url
     let catImgitem = Carousel.createCarouselItem(catImgSrc)
-    breedSelect.appendChild(nameDisplay)
+    breedSelect.appendChild(catImgitem)
   }
+
+  const infoDisplay = document.createElement("p")
+  infoDisplay.innerText = catInfo.description
+  infoDump.appendChild(infoDisplay)
+
   Carousel.start(); //calling the Carousel start function. 
 
 }

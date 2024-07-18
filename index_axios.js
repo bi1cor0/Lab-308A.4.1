@@ -36,7 +36,6 @@ async function initialLoad(){ // * 1. Create an async function "initialLoad" tha
 initialLoad()
 /**
  * 2. 
- * - Retrieve information on the selected breed from the cat API using fetch().
  *  - Make sure your request is receiving multiple array items!
  *  - Check the API documentation if you're only getting a single object.
  * - For each object in the response array, create a new element for the carousel.
@@ -49,20 +48,29 @@ initialLoad()
  * - Add a call to this function to the end of your initialLoad function above to create the initial carousel.
  */
 
-async function printCatContent() {
+async function printCatContent() { //
   Carousel.clear(); //attempting to clear the Carousel
+  while (infoDump.firstChild) { //creating while loop that takes in a boolean to check to see if infodump has a child node. 
+    infoDump.removeChild(infoDump.firstChild); //remove the child node if there is one 
+  }
   let selectedCat = this.options[this.selectedIndex] //getting the value of the selected option
   let selectCatId = selectedCat.id//getting the value of the selected option's id for api get. 
-  console.log(selectCatId)
+  
 
   const getcatPics = await axios.get(`https://api.thecatapi.com/v1/images/search?limit=10&breed_ids=${selectCatId}&api_key=${API_KEY}`) //Retrieve information on the selected breed from the cat API using axios.
-  const catPics = getcatPics.data
+  const catPics = getcatPics.data //setting up variable to separate the array from the object. 
+  const getcatInfo = await axios.get(`https://api.thecatapi.com/v1/breeds/${selectCatId}`) //axios method to get info. 
+  const catInfo = getcatInfo.data
 
   for(let i = 0; i < catPics.length; i++){
     let catImgSrc = catPics[i].url
     let catImgitem = Carousel.createCarouselItem(catImgSrc)
     Carousel.appendCarousel(catImgitem)
   }
+  const infoDisplay = document.createElement("p")
+  infoDisplay.innerText = catInfo.description
+  infoDump.appendChild(infoDisplay)
+
   Carousel.start(); //attempting to restart the Carousel 
 }
 
