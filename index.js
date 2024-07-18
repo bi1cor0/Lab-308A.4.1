@@ -62,7 +62,7 @@ async function printCatContent() {
     console.log(catImgSrc)
     let catImgitem = Carousel.createCarouselItem(catImgSrc)
     console.log(catImgitem)
-    Carousel.createCarouselItem(catImgitem)
+    document.getElementById("infoDump").appendChild(Carousel.createCarouselItem(catImgitem))
   }
 }
 
