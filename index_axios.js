@@ -1,5 +1,5 @@
 import * as Carousel from "./Carousel.js";
-//import axios from "axios";
+import axios from "axios";
 
 // The breed selection input element.
 const breedSelect = document.getElementById("breedSelect");
@@ -20,8 +20,10 @@ const API_KEY = "live_uTP2aVL6kUJPYYaUuTy2W2vGjSZRFNKmjs206QhnKHnULIXFFmlac6R7Yu
  */
 
 async function initialLoad(){
-  const getCats = await fetch('https://api.thecatapi.com/v1/breeds')
-  const catData = await getCats.json();
+  const getCats = await axios.get('https://api.thecatapi.com/v1/breeds')
+  const catData = getCats.data;
+
+  console.log(catData)
   for(let i = 0; i < catData.length; i++){
     let breedName = catData[i].name;
     let nameDisplay = document.createElement("option")
@@ -54,14 +56,16 @@ async function printCatContent() {
   let selectedCat = this.options[this.selectedIndex]
   let selectCatId = selectedCat.id
 
-  const getCatPics = await fetch(`https://api.thecatapi.com/v1/images/search?limit=10&breed_ids=${selectCatId}&api_key=${API_KEY}`)
-  const catPics = await getCatPics.json();
+  const getcatPics = await axios.get(`https://api.thecatapi.com/v1/images/search?limit=10&breed_ids=${selectCatId}&api_key=${API_KEY}`)
+  const catPics = getcatPics.data
+  console.log(catPics)
 
   for(let i = 0; i < catPics.length; i++){
     let catImgSrc = catPics[i].url
     console.log(catImgSrc)
     let catImgitem = Carousel.createCarouselItem(catImgSrc)
     console.log(catImgitem)
+    //document.getElementById("infoDump").appendChild(Carousel.
     let newCatitem = Carousel.createCarouselItem(catImgitem)
     document.getElementById("infoDump").appendChild(newCatitem)
 
