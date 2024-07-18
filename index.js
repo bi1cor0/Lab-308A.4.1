@@ -59,14 +59,10 @@ async function printCatContent() {
 
   for(let i = 0; i < catPics.length; i++){
     let catImgSrc = catPics[i].url
-    console.log(catImgSrc)
     let catImgitem = Carousel.createCarouselItem(catImgSrc)
     console.log(catImgitem)
     let newCatitem = Carousel.createCarouselItem(catImgitem)
     document.getElementById("infoDump").appendChild(newCatitem)
-
-    console.log(newCatitem)
-
   }
 }
 
